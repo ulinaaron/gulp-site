@@ -1,5 +1,5 @@
 # Gulp Site Generator
-A barebones site generator using Gulp. This will allow you to create simple sites with shared markup components such as a header, footer or sidebar. This is not a proper solution for sites that require blog like components. For that, you should use something like Jekyll or Middleman.
+A barebones site generator using Gulp. This will allow you to create simple sites with shared markup components for a header, footer, or sidebar. This is not a proper solution for sites that require blog like components. For that, you should use something like Jekyll or Middleman.
 
 ## Requirements
 You must have the following setup and rockin on your local machine:
