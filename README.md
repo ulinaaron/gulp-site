@@ -39,8 +39,8 @@ git checkout master
 
 If all goes well, you will be able to go to the Settings page of your repository to find out the published address of your site. Of course if you are using a domain, that will require more configuration. See more help on this [here](https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages/).
 
+*Credit to [gulp-gh-pages](https://github.com/rowoot/gulp-gh-pages/) for the initialization steps.*
+
 ### Deploying
 
 Once the gh-pages branch is initialized you can now deploy using the command `gulp deploy`. This will take the contents of your build folder and move it to the gh-pages branch.
-
-*Credit to [gulp-gh-pages](https://github.com/rowoot/gulp-gh-pages/) for the initialization steps.*
