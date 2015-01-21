@@ -1,6 +1,12 @@
 # Gulp Site Generator
 A barebones site generator using Gulp.
 
+## Requirements
+You must have the following setup and rockin on your local machine:
+- [npm](https://github.com/npm/npm)
+- [gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
+- [bower](http://bower.io/#install-bower)
+
 ## Setting up hosting with Github
 
 The Gulp site generator uses a plugin called `gulp-gh-pages` to allow deployment from the command line.
