@@ -35,6 +35,16 @@ var dir_site_src                = 'src/',
     dev_port                    = '7280',
     dev_dir                     = dir_site_build;
 
+    /**
+     * Include Bourbon and Bourbon Neat?
+     * Optionally, you may choose to have the Node versions of Bourbon and Bourbon Neat Installed.
+     *
+     * Note: IF you choose not to use them, make sure to comment them out of the main.scss file in
+     * your `src/scss/` folder.
+     */
+    
+    var includeBourbon = true;
+
 /**
  * Initialize
  * ========================
@@ -130,7 +140,21 @@ gulp.task('bower-packages', function () {
 
 gulp.task('npm-packages', function () {
 
-    return merge();
+	if ( includeBourbon === true ) {
+	    return merge(
+
+	        // Node Bourbon
+	        gulp.src(dir_npm + 'node-bourbon/assets/stylesheets/**/*.*', ['clean'])
+	            .pipe(gulp.dest(dir_site_src_scss_vendor + 'node-bourbon')), // Copies to src/scss
+
+	        // Node Neat
+	        gulp.src(dir_npm + 'node-neat/assets/stylesheets/**/*.*', ['clean'])
+	            .pipe(gulp.dest(dir_site_src_scss_vendor + 'node-neat')) // Copies to src/scss
+	    );
+	} else {
+		// TODO: If not included, clean the directories using plugins.del()
+	}
+
 });
 
 /**
