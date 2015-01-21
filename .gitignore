@@ -36,6 +36,8 @@ Icon
 .Spotlight-V100
 .Trashes
 
+### Bower ###
+bower_components
 
 ### Custom ###
 
@@ -43,10 +45,7 @@ Icon
 
 .githubsettings
 
-# Ignore Mixture Files Files
-
 # Not sure if I want this in the project yet...
-config.codekit
 min
 node_modules
 npm-debug.log
