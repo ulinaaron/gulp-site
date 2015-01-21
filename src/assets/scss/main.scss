@@ -1,0 +1,13 @@
+/*!
+Gulp Site Generator
+Licensed under the MIT License.
+Version: 1.0.0
+*/
+
+// Normalize
+//
+// This pulls Normalize from the vendor folder.
+// This can be updated using the Gulp task, 'gulp bower-packages.'
+// --------------------------------------------------
+
+@import "vendor/base_normalize";
