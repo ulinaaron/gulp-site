@@ -1,7 +1,5 @@
-# gulp-site
+# Gulp Site Generator
 A barebones site generator using Gulp.
-
-Documentation coming soon!
 
 ## Setting up hosting with Github
 
