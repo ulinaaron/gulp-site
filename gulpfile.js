@@ -90,18 +90,6 @@ gulp.task('image', function () {
 });
 
 /**
- * Task: Clean
- * ========================
- */
-
-gulp.task('clean', function () {
-    return gulp.src('**/.DS_Store', {
-        read: false
-    })
-    .pipe(plugins.rimraf());
-});
-
-/**
  * Task: Reload
  * ========================
  */
@@ -197,4 +185,4 @@ gulp.task('watch', function() {
  * ========================
  */
 
-gulp.task('default', ['html', 'clean', 'watch']);
+gulp.task('default', ['html', 'styles', 'watch']);
