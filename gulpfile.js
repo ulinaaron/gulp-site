@@ -119,10 +119,10 @@ gulp.task('reload', function () {
 
 gulp.task('bower-packages', function () {
 
-        // Normalize
-        gulp.src([dir_bower + 'normalize.css/normalize.css'])
-        .pipe(plugins.rename('_base_normalize.scss'))
-        .pipe(gulp.dest(dir_site_src_scss_vendor)); // Copies to src/scss
+    // Normalize
+    gulp.src([dir_bower + 'normalize.css/normalize.css'])
+    .pipe(plugins.rename('_base_normalize.scss'))
+    .pipe(gulp.dest(dir_site_src_scss_vendor)); // Copies to src/scss
         
 });
 
