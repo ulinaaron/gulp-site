@@ -23,6 +23,16 @@ If all the prerequisites are met, this will scaffold out your basic gulp-site.
 
 Now you can run `gulp` from the root project folder. While `gulp` is running it will watch for any changes to your HTML source or asset sources. You will also be given URLs to view your website when you initially run the command. By default this URL is `http://localhost:7280`.
 
+## Vendor Libraries
+
+By default, the Gulp Site Generator is setup to automate the following libraries:
+
+- Normalize.css
+- Node Bourbon *
+- Node Bourbon Neat *
+
+* These items may be optionally excluded by modifiing the ``includeBourbon`` variable to ``false`` in gulpfile.js
+
 ## Templates
 
 ### Page Titles
