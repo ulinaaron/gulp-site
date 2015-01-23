@@ -18,6 +18,7 @@ From the command line, open the `gulp-site` project folder. Then run the followi
 ```shell
 npm install
 bower install
+gulp npm-packages
 ```
 
 If all the prerequisites are met, this will scaffold out your basic gulp-site.
