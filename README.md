@@ -23,6 +23,23 @@ If all the prerequisites are met, this will scaffold out your basic gulp-site.
 
 Now you can run `gulp` from the root project folder. While `gulp` is running it will watch for any changes to your HTML source or asset sources. You will also be given URLs to view your website when you initially run the command. By default this URL is `http://localhost:7280`.
 
+## Templates
+
+### Page Titles
+
+You can page variables through your file includes with the "gulp-file-include" plugin. Currently these is being used to generate unique page titles for each site page.
+
+```
+@@include('./includes/_doc-head.html', {
+	"title": "Index - A Gulp Site"
+})
+
+<h1>A Gulp Site!</h1>
+
+@@include('./includes/_doc-footer.html')
+```
+
+For more about using this system check out the [gulp-file-include](https://www.npmjs.com/package/gulp-file-include) page.
 
 ## Setting up hosting with Github Pages
 
