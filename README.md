@@ -25,13 +25,7 @@ Now you can run `gulp` from the root project folder. While `gulp` is running it 
 
 ## Vendor Libraries
 
-By default, the Gulp Site Generator is setup to automate the following libraries:
-
-- Normalize.css
-- Node Bourbon *
-- Node Bourbon Neat *
-
-* These items may be optionally excluded by modifiing the ``includeBourbon`` variable to ``false`` in gulpfile.js
+By default, the Gulp Site Generator is setup to automate Normalize.css, Node Bourbon, and Node Bourbon Neat. The Bourbon items may be optionally excluded by modifiing the ``includeBourbon`` variable to ``false`` in gulpfile.js
 
 ## Templates
 
