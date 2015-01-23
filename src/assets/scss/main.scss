@@ -4,6 +4,16 @@ Licensed under the MIT License.
 Version: 1.0.0
 */
 
+// OPTIONAL
+// If you wish not to use the Bourbon libraries, simply comment them out.
+// --------------------------------------------------
+
+// BOURBON
+@import "vendor/node-bourbon/bourbon";
+
+// BOURBON NEAT
+@import "vendor/node-neat/neat";
+
 // Normalize
 //
 // This pulls Normalize from the vendor folder.
