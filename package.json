@@ -4,7 +4,7 @@
   "description": "A barebones site generator using Gulp.",
   "main": "index.html",
   "scripts": {
-    "postinstall": "bower install && gulp npm-packages"
+    "postinstall": "gulp npm-packages"
   },
   "repository": {
     "type": "git",
