@@ -217,7 +217,7 @@ gulp.task('watch', function() {
     });
     gulp.watch(dir_site_src_scss + '**/*.scss', ['styles']);
     gulp.watch(dir_site_src_js + '**/*.js', ['scripts']);
-    gulp.watch([dir_site_src_img + '**/*', dir_site_build_img + '**/*'], ['image']);
+    gulp.watch([dir_site_src_img + '**/*', dir_site_build_img + '**/*'], ['images']);
     gulp.watch(dir_site_src + '**/*.html', ['html']);
 });
 
