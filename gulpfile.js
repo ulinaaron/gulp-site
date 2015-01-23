@@ -7,6 +7,8 @@
  *
  */
 
+'use strict';
+
 /**
  * Setup
  * ========================
@@ -20,8 +22,6 @@ var dir_site_src                = 'src/',
     dir_site_src_scss           = 'src/assets/scss/',
     dir_site_src_scss_vendor    = 'src/assets/scss/vendor/',
     dir_site_src_js             = 'src/assets/js/',
-    dir_site_src_js_standalone  = 'src/assets/js/standalone/',
-    dir_site_src_js_plug        = 'src/assets/js/plugins/',
     dir_site_src_img            = 'src/assets/img/',
     // Site Build
     dir_site_build_css          = 'build/assets/css/',
@@ -84,11 +84,31 @@ gulp.task('styles', function () {
 });
 
 /**
+ * Task: JS Scripts
+ * ========================
+ * Todo: This only concats alphabetically. May make sense to switch to Browserify.
+ */
+
+gulp.task('scripts', function () {
+    return gulp.src(dir_site_src_js + '*.js')
+        .pipe(plugins.jshint('.jshintrc'))
+        .pipe(plugins.jshint.reporter('jshint-stylish'))
+        .pipe(plugins.concat(js_final + '.js'))
+        .pipe(gulp.dest(dir_site_build_js))
+        .pipe(plugins.rename({
+            suffix: '.min'
+        }))
+        .pipe(plugins.uglify())
+        .pipe(gulp.dest(dir_site_build_js))
+        .pipe(reload({stream:true, once:true}));
+});
+
+/**
  * Task: Images
  * ========================
  */
 
-gulp.task('image', function () {
+gulp.task('images', function () {
     return gulp.src(dir_site_src_img + '**/*')
     .pipe(plugins.cache(plugins.imagemin({
         optimizationLevel: 7,
@@ -196,6 +216,7 @@ gulp.task('watch', function() {
         port: dev_port
     });
     gulp.watch(dir_site_src_scss + '**/*.scss', ['styles']);
+    gulp.watch(dir_site_src_js + '**/*.js', ['scripts']);
     gulp.watch([dir_site_src_img + '**/*', dir_site_build_img + '**/*'], ['image']);
     gulp.watch(dir_site_src + '**/*.html', ['html']);
 });
@@ -205,4 +226,4 @@ gulp.task('watch', function() {
  * ========================
  */
 
-gulp.task('default', ['html', 'styles', 'watch']);
+gulp.task('default', ['html', 'styles', 'scripts', 'images', 'watch']);
