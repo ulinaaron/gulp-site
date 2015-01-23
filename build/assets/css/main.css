@@ -3,6 +3,18 @@ Gulp Site Generator
 Licensed under the MIT License.
 Version: 1.0.0
 */
+/* Neat 1.7.0
+ * http://neat.bourbon.io
+ * Copyright 2012-2014 thoughtbot, inc.
+ * MIT License */
+html {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+*, *:before, *:after {
+  -moz-box-sizing: inherit;
+  box-sizing: inherit; }
+
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.
