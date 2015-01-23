@@ -27,7 +27,7 @@
     "gulp-csso": "^0.2.9",
     "gulp-file-include": "^0.4.2",
     "gulp-gh-pages": "^0.3.3",
-    "gulp-imagemin": "^0.1.5",
+    "gulp-imagemin": "^2.1.0",
     "gulp-jshint": "^1.4.2",
     "gulp-load-plugins": "^0.3.0",
     "gulp-rename": "^1.1.0",

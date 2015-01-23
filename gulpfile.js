@@ -110,11 +110,11 @@ gulp.task('scripts', function () {
 
 gulp.task('images', function () {
     return gulp.src(dir_site_src_img + '**/*')
-    .pipe(plugins.cache(plugins.imagemin({
+    .pipe(plugins.imagemin({
         optimizationLevel: 7,
         progressive: true,
         interlaced: true
-    })))
+    }))
     .pipe(gulp.dest(dir_site_build_img))
     .pipe(reload({stream:true, once:true}));
 });
