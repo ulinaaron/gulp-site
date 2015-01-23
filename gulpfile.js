@@ -122,7 +122,7 @@ gulp.task('bower-packages', function () {
     // Normalize
     gulp.src([dir_bower + 'normalize.css/normalize.css'])
     .pipe(plugins.rename('_base_normalize.scss'))
-    .pipe(gulp.dest(dir_site_src_scss_vendor)); // Copies to src/scss
+    .pipe(gulp.dest(dir_site_src_scss_vendor));
         
 });
 
@@ -141,11 +141,11 @@ gulp.task('npm-packages', function () {
 
 	        // Node Bourbon
 	        gulp.src(dir_npm + 'node-bourbon/assets/stylesheets/**/*.*', ['clean'])
-	            .pipe(gulp.dest(dir_site_src_scss_vendor + 'node-bourbon')), // Copies to src/scss
+	            .pipe(gulp.dest(dir_site_src_scss_vendor + 'node-bourbon')),
 
 	        // Node Neat
 	        gulp.src(dir_npm + 'node-neat/assets/stylesheets/**/*.*', ['clean'])
-	            .pipe(gulp.dest(dir_site_src_scss_vendor + 'node-neat')) // Copies to src/scss
+	            .pipe(gulp.dest(dir_site_src_scss_vendor + 'node-neat'))
 	    );
 	} else {
 		// TODO: If not included, clean the directories using plugins.del()
