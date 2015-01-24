@@ -14,26 +14,32 @@
  * ========================
  */
 
-    // Site Setup
-var dir_site_src                = 'src/',
-    dir_site_build              = 'build/',
-    // Site Source
-    dir_site_src_assets         = 'src/assets/',
-    dir_site_src_scss           = 'src/assets/scss/',
-    dir_site_src_scss_vendor    = 'src/assets/scss/vendor/',
-    dir_site_src_js             = 'src/assets/js/',
-    dir_site_src_img            = 'src/assets/img/',
-    // Site Build
-    dir_site_build_css          = 'build/assets/css/',
-    dir_site_build_js           = 'build/assets/js/',
-    dir_site_build_img          = 'build/assets/img/',
-    // Misc
-    dir_bower                   = 'bower_components/',
-    dir_npm                     = 'node_modules/',
-    js_final                    = 'main', // JS final name of all the combined JS files
-    // Browser Sync Settings
-    dev_port                    = '7280',
-    dev_dir                     = dir_site_build;
+var 
+    paths = {
+        src: {
+            base: 'src/',
+            assets: 'src/assets/',
+            scss: 'src/assets/scss/',
+            scssVendor: 'src/assets/scss/vendor/',
+            js: 'src/assets/js/',
+            img: 'src/assets/img/',
+        },
+        build: {
+            base: 'build',
+            css: 'build/assets/css/',
+            js: 'build/assets/js/',
+            img: 'build/assets/img/',
+        },
+        bower: 'bower_components/',
+        npm: 'node_modules/',
+    },
+    files = {
+        jsFinal: 'main'
+    },
+    devServer = {
+        port: 7280,
+        path: paths.build.base
+    };
 
     /**
      * Include Bourbon and Bourbon Neat?
@@ -65,13 +71,13 @@ var gulp = require('gulp'),
  */
 
 gulp.task('styles', function () {
-    return gulp.src([dir_site_src_scss + '*.scss', '!' + dir_site_src_scss + '_*.scss'])
+    return gulp.src([paths.src.scss + '*.scss', '!' + paths.src.scss + '_*.scss'])
     .pipe(plugins.sass({
         errLogToConsole: true
     }))
     .pipe(plugins.autoprefixer('last 2 versions', 'ie 9', 'ios 6', 'android 4'))
     .pipe(plugins.bless())
-    .pipe(gulp.dest(dir_site_build_css))
+    .pipe(gulp.dest(paths.build.css))
     .pipe(reload({stream:true}))
     .pipe(plugins.csso({
         keepSpecialComments: 1
@@ -79,7 +85,7 @@ gulp.task('styles', function () {
     .pipe(plugins.rename({
         suffix: '.min'
     }))
-    .pipe(gulp.dest(dir_site_build_css))
+    .pipe(gulp.dest(paths.build.css))
     .pipe(reload({stream:true}));
 });
 
@@ -90,16 +96,16 @@ gulp.task('styles', function () {
  */
 
 gulp.task('scripts', function () {
-    return gulp.src(dir_site_src_js + '*.js')
+    return gulp.src(paths.src.js + '*.js')
         .pipe(plugins.jshint('.jshintrc'))
         .pipe(plugins.jshint.reporter('jshint-stylish'))
-        .pipe(plugins.concat(js_final + '.js'))
-        .pipe(gulp.dest(dir_site_build_js))
+        .pipe(plugins.concat(files.jsFinal + '.js'))
+        .pipe(gulp.dest(paths.build.js))
         .pipe(plugins.rename({
             suffix: '.min'
         }))
         .pipe(plugins.uglify())
-        .pipe(gulp.dest(dir_site_build_js))
+        .pipe(gulp.dest(paths.build.js))
         .pipe(reload({stream:true, once:true}));
 });
 
@@ -109,13 +115,13 @@ gulp.task('scripts', function () {
  */
 
 gulp.task('images', function () {
-    return gulp.src(dir_site_src_img + '**/*')
+    return gulp.src(paths.src.img + '**/*')
     .pipe(plugins.imagemin({
         optimizationLevel: 7,
         progressive: true,
         interlaced: true
     }))
-    .pipe(gulp.dest(dir_site_build_img))
+    .pipe(gulp.dest(paths.build.img))
     .pipe(reload({stream:true, once:true}));
 });
 
@@ -140,9 +146,9 @@ gulp.task('reload', function () {
 gulp.task('bower-packages', function () {
 
     // Normalize
-    gulp.src([dir_bower + 'normalize.css/normalize.css'])
+    gulp.src([paths.bower + 'normalize.css/normalize.css'])
     .pipe(plugins.rename('_base_normalize.scss'))
-    .pipe(gulp.dest(dir_site_src_scss_vendor));
+    .pipe(gulp.dest(paths.src.scssVendor));
         
 });
 
@@ -160,12 +166,12 @@ gulp.task('npm-packages', function () {
 	    return merge(
 
 	        // Node Bourbon
-	        gulp.src(dir_npm + 'node-bourbon/assets/stylesheets/**/*.*', ['clean'])
-	            .pipe(gulp.dest(dir_site_src_scss_vendor + 'node-bourbon')),
+	        gulp.src(paths.npm + 'node-bourbon/assets/stylesheets/**/*.*', ['clean'])
+	            .pipe(gulp.dest(paths.src.scssVendor + 'node-bourbon')),
 
 	        // Node Neat
-	        gulp.src(dir_npm + 'node-neat/assets/stylesheets/**/*.*', ['clean'])
-	            .pipe(gulp.dest(dir_site_src_scss_vendor + 'node-neat'))
+	        gulp.src(paths.npm + 'node-neat/assets/stylesheets/**/*.*', ['clean'])
+	            .pipe(gulp.dest(paths.src.scssVendor + 'node-neat'))
 	    );
 	} else {
 		// TODO: If not included, clean the directories using plugins.del()
@@ -180,12 +186,12 @@ gulp.task('npm-packages', function () {
  */
 
 gulp.task('html', function() {
-    gulp.src([dir_site_src + '**/*.html', '!' + dir_site_src + '**/_*.html'])
+    gulp.src([paths.src.base + '**/*.html', '!' + paths.src.base + '**/_*.html'])
     .pipe(plugins.fileInclude({
         prefix: '@@',
         basepath: '@file'
     }))
-    .pipe(gulp.dest(dir_site_build))
+    .pipe(gulp.dest(paths.build.base))
     .pipe(reload({stream:true}));
 });
 
@@ -196,7 +202,7 @@ gulp.task('html', function() {
  */
 
 gulp.task('deploy', function() {
-    gulp.src(dir_site_build + '**/*')
+    gulp.src(paths.build.base + '**/*')
     .pipe(plugins.ghPages());
 });
 
@@ -210,15 +216,15 @@ gulp.task('watch', function() {
 
     browserSync.init({
         server: {
-            baseDir: dev_dir
+            baseDir: devServer.path
         },
         open: false,
-        port: dev_port
+        port: devServer.port
     });
-    gulp.watch(dir_site_src_scss + '**/*.scss', ['styles']);
-    gulp.watch(dir_site_src_js + '**/*.js', ['scripts']);
-    gulp.watch([dir_site_src_img + '**/*', dir_site_build_img + '**/*'], ['images']);
-    gulp.watch(dir_site_src + '**/*.html', ['html']);
+    gulp.watch(paths.src.scss + '**/*.scss', ['styles']);
+    gulp.watch(paths.src.js + '**/*.js', ['scripts']);
+    gulp.watch([paths.src.img + '**/*', paths.build.img + '**/*'], ['images']);
+    gulp.watch(paths.src.base + '**/*.html', ['html']);
 });
 
 /**
