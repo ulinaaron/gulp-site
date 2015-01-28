@@ -1,0 +1,41 @@
+{
+	"siteTitle": "A Gulp Site",
+	"paths": {
+		"src": {
+            "base": "src/",
+            "assets": "src/assets/",
+            "scss": "src/assets/scss/",
+            "scssVendor": "src/assets/scss/vendor/",
+            "js": "src/assets/js/",
+            "img": "src/assets/img/"
+        },
+        "build": {
+            "base": "build/",
+            "css": "build/assets/css/",
+            "js": "build/assets/js/",
+            "img": "build/assets/img/"
+        },
+        "bower": "bower_components/",
+        "npm": "node_modules/"
+	},
+	"files": {
+        "jsFinal": "main"
+    },
+    "devServer": {
+        "port": 7280,
+        "path": "build/"
+    },
+    "includeBourbon": true,
+    "googleAnalyticsID": "UA-XXXXX-X",
+    "autoprefixer": [
+    	"ie >= 10",
+	    "ie_mob >= 10",
+	    "ff >= 30",
+	    "chrome >= 34",
+	    "safari >= 7",
+	    "opera >= 23",
+	    "ios >= 7",
+	    "android >= 4.4",
+	    "bb >= 10"
+    ]
+}

@@ -10,54 +10,13 @@
 'use strict';
 
 /**
- * Setup
- * ========================
- */
-
-var 
-    paths = {
-        src: {
-            base: 'src/',
-            assets: 'src/assets/',
-            scss: 'src/assets/scss/',
-            scssVendor: 'src/assets/scss/vendor/',
-            js: 'src/assets/js/',
-            img: 'src/assets/img/',
-        },
-        build: {
-            base: 'build',
-            css: 'build/assets/css/',
-            js: 'build/assets/js/',
-            img: 'build/assets/img/',
-        },
-        bower: 'bower_components/',
-        npm: 'node_modules/',
-    },
-    files = {
-        jsFinal: 'main'
-    },
-    devServer = {
-        port: 7280,
-        path: paths.build.base
-    };
-
-    /**
-     * Include Bourbon and Bourbon Neat?
-     * Optionally, you may choose to have the Node versions of Bourbon and Bourbon Neat Installed.
-     *
-     * Note: IF you choose not to use them, make sure to comment them out of the main.scss file in
-     * your `src/scss/` folder.
-     */
-    
-    var includeBourbon = true;
-
-/**
  * Initialize
  * ========================
  */
 
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
+    config = require('./config.json'),
     plugins = require('gulp-load-plugins')({
         camelize: true
     }),
@@ -71,13 +30,13 @@ var gulp = require('gulp'),
  */
 
 gulp.task('styles', function () {
-    return gulp.src([paths.src.scss + '*.scss', '!' + paths.src.scss + '_*.scss'])
+    return gulp.src([config.paths.src.scss + '*.scss', '!' + config.paths.src.scss + '_*.scss'])
     .pipe(plugins.sass({
         errLogToConsole: true
     }))
     .pipe(plugins.autoprefixer('last 2 versions', 'ie 9', 'ios 6', 'android 4'))
     .pipe(plugins.bless())
-    .pipe(gulp.dest(paths.build.css))
+    .pipe(gulp.dest(config.paths.build.css))
     .pipe(reload({stream:true}))
     .pipe(plugins.csso({
         keepSpecialComments: 1
@@ -85,7 +44,7 @@ gulp.task('styles', function () {
     .pipe(plugins.rename({
         suffix: '.min'
     }))
-    .pipe(gulp.dest(paths.build.css))
+    .pipe(gulp.dest(config.paths.build.css))
     .pipe(reload({stream:true}));
 });
 
@@ -96,16 +55,16 @@ gulp.task('styles', function () {
  */
 
 gulp.task('scripts', function () {
-    return gulp.src(paths.src.js + '*.js')
+    return gulp.src(config.paths.src.js + '*.js')
         .pipe(plugins.jshint('.jshintrc'))
         .pipe(plugins.jshint.reporter('jshint-stylish'))
-        .pipe(plugins.concat(files.jsFinal + '.js'))
-        .pipe(gulp.dest(paths.build.js))
+        .pipe(plugins.concat(config.files.jsFinal + '.js'))
+        .pipe(gulp.dest(config.paths.build.js))
         .pipe(plugins.rename({
             suffix: '.min'
         }))
         .pipe(plugins.uglify())
-        .pipe(gulp.dest(paths.build.js))
+        .pipe(gulp.dest(config.paths.build.js))
         .pipe(reload({stream:true, once:true}));
 });
 
@@ -115,13 +74,13 @@ gulp.task('scripts', function () {
  */
 
 gulp.task('images', function () {
-    return gulp.src(paths.src.img + '**/*')
+    return gulp.src(config.paths.src.img + '**/*')
     .pipe(plugins.imagemin({
         optimizationLevel: 7,
         progressive: true,
         interlaced: true
     }))
-    .pipe(gulp.dest(paths.build.img))
+    .pipe(gulp.dest(config.paths.build.img))
     .pipe(reload({stream:true, once:true}));
 });
 
@@ -146,9 +105,9 @@ gulp.task('reload', function () {
 gulp.task('bower-packages', function () {
 
     // Normalize
-    gulp.src([paths.bower + 'normalize.css/normalize.css'])
+    gulp.src([config.paths.bower + 'normalize.css/normalize.css'])
     .pipe(plugins.rename('_base_normalize.scss'))
-    .pipe(gulp.dest(paths.src.scssVendor));
+    .pipe(gulp.dest(config.paths.src.scssVendor));
         
 });
 
@@ -162,16 +121,16 @@ gulp.task('bower-packages', function () {
 
 gulp.task('npm-packages', function () {
 
-	if ( includeBourbon === true ) {
+	if ( config.includeBourbon === true ) {
 	    return merge(
 
 	        // Node Bourbon
-	        gulp.src(paths.npm + 'node-bourbon/assets/stylesheets/**/*.*', ['clean'])
-	            .pipe(gulp.dest(paths.src.scssVendor + 'node-bourbon')),
+	        gulp.src(config.paths.npm + 'node-bourbon/assets/stylesheets/**/*.*', ['clean'])
+	            .pipe(gulp.dest(config.paths.src.scssVendor + 'node-bourbon')),
 
 	        // Node Neat
-	        gulp.src(paths.npm + 'node-neat/assets/stylesheets/**/*.*', ['clean'])
-	            .pipe(gulp.dest(paths.src.scssVendor + 'node-neat'))
+	        gulp.src(config.paths.npm + 'node-neat/assets/stylesheets/**/*.*', ['clean'])
+	            .pipe(gulp.dest(config.paths.src.scssVendor + 'node-neat'))
 	    );
 	} else {
 		// TODO: If not included, clean the directories using plugins.del()
@@ -186,12 +145,12 @@ gulp.task('npm-packages', function () {
  */
 
 gulp.task('html', function() {
-    gulp.src([paths.src.base + '**/*.html', '!' + paths.src.base + '**/_*.html'])
+    gulp.src([config.paths.src.base + '**/*.html', '!' + config.paths.src.base + '**/_*.html'])
     .pipe(plugins.fileInclude({
         prefix: '@@',
         basepath: '@file'
     }))
-    .pipe(gulp.dest(paths.build.base))
+    .pipe(gulp.dest(config.paths.build.base))
     .pipe(reload({stream:true}));
 });
 
@@ -202,7 +161,7 @@ gulp.task('html', function() {
  */
 
 gulp.task('deploy', function() {
-    gulp.src(paths.build.base + '**/*')
+    gulp.src(config.paths.build.base + '**/*')
     .pipe(plugins.ghPages());
 });
 
@@ -216,15 +175,15 @@ gulp.task('watch', function() {
 
     browserSync.init({
         server: {
-            baseDir: devServer.path
+            baseDir: config.devServer.path
         },
         open: false,
-        port: devServer.port
+        port: config.devServer.port
     });
-    gulp.watch(paths.src.scss + '**/*.scss', ['styles']);
-    gulp.watch(paths.src.js + '**/*.js', ['scripts']);
-    gulp.watch([paths.src.img + '**/*', paths.build.img + '**/*'], ['images']);
-    gulp.watch(paths.src.base + '**/*.html', ['html']);
+    gulp.watch(config.paths.src.scss + '**/*.scss', ['styles']);
+    gulp.watch(config.paths.src.js + '**/*.js', ['scripts']);
+    gulp.watch([config.paths.src.img + '**/*', config.paths.build.img + '**/*'], ['images']);
+    gulp.watch(config.paths.src.base + '**/*.html', ['html']);
 });
 
 /**
