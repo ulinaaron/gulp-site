@@ -34,7 +34,7 @@ gulp.task('styles', function () {
     .pipe(plugins.sass({
         errLogToConsole: true
     }))
-    .pipe(plugins.autoprefixer('last 2 versions', 'ie 9', 'ios 6', 'android 4'))
+    .pipe(plugins.autoprefixer(config.autoprefixer))
     .pipe(plugins.bless())
     .pipe(gulp.dest(config.paths.build.css))
     .pipe(reload({stream:true}))
@@ -75,11 +75,7 @@ gulp.task('scripts', function () {
 
 gulp.task('images', function () {
     return gulp.src(config.paths.src.img + '**/*')
-    .pipe(plugins.imagemin({
-        optimizationLevel: 7,
-        progressive: true,
-        interlaced: true
-    }))
+    .pipe(plugins.imagemin(config.imagemin))
     .pipe(gulp.dest(config.paths.build.img))
     .pipe(reload({stream:true, once:true}));
 });
