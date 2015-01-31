@@ -1,4 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/ulinaaron/gulp-site.svg?label=ready&title=Ready)](http://waffle.io/ulinaaron/gulp-site)
+[![Build Status](https://travis-ci.org/ulinaaron/gulp-site.svg)](https://travis-ci.org/ulinaaron/gulp-site)
 
 # Gulp Site Generator
 A barebones site generator using Gulp. This will allow you to create simple sites with shared markup components for a header, footer, or sidebar. This is not a proper solution for sites that require blog like components. For that, you should use something like Jekyll or Middleman.
