@@ -210,3 +210,11 @@ gulp.task('watch', function() {
  */
 
 gulp.task('default', ['html', 'styles', 'scripts', 'images', 'watch']);
+
+/**
+ * Task: Test
+ * ========================
+ * Used for testing builds without watch.
+ */
+
+gulp.task('test', ['html', 'styles', 'scripts', 'images']);
