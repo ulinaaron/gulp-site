@@ -45,6 +45,6 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "gulp npm-packages && gulp"
+    "test": "gulp npm-packages && gulp test"
   }
 }
