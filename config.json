@@ -44,5 +44,12 @@
         "optimizationLevel": 7,
         "progressive": true,
         "interlaced": true
+    },
+    "notifications": {
+        "sass": "Styles successfully processed.",
+        "scripts": "Scripts successfully processed.",
+        "images": "Images successfully minified.",
+        "markup": "Markup successfully processed.",
+        "deployed": "Successfully been deploy to GitHub Pages!"
     }
 }

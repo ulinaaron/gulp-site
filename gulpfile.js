@@ -25,15 +25,30 @@ var gulp = require('gulp'),
     reload = browserSync.reload;
 
 /**
+ * Default Error Handling
+ * ========================
+ */
+
+var onError = function(err) {
+    plugins.notify.onError({
+        title:    "Gulp Site Generator",
+        subtitle: "Error",
+        message:  "<%= error.message %>",
+        sound:    "Beep"
+    })(err);
+
+    this.emit('end');
+};
+
+/**
  * Task: Styles
  * ========================
  */
 
 gulp.task('styles', function () {
     return gulp.src([config.paths.src.scss + '*.scss', '!' + config.paths.src.scss + '_*.scss'])
-    .pipe(plugins.sass({
-        errLogToConsole: true
-    }))
+    .pipe(plugins.plumber({errorHandler: onError}))
+    .pipe(plugins.sass())
     .pipe(plugins.autoprefixer(config.autoprefixer))
     .pipe(plugins.bless())
     .pipe(gulp.dest(config.paths.build.css))
@@ -45,7 +60,8 @@ gulp.task('styles', function () {
         suffix: '.min'
     }))
     .pipe(gulp.dest(config.paths.build.css))
-    .pipe(reload({stream:true}));
+    .pipe(reload({stream:true}))
+    .pipe(plugins.notify({ message: config.notifications.sass }));
 });
 
 /**
@@ -56,16 +72,19 @@ gulp.task('styles', function () {
 
 gulp.task('scripts', function () {
     return gulp.src(config.paths.src.js + '*.js')
-        .pipe(plugins.jshint('.jshintrc'))
-        .pipe(plugins.jshint.reporter('jshint-stylish'))
-        .pipe(plugins.concat(config.files.jsFinal + '.js'))
-        .pipe(gulp.dest(config.paths.build.js))
-        .pipe(plugins.rename({
-            suffix: '.min'
-        }))
-        .pipe(plugins.uglify())
-        .pipe(gulp.dest(config.paths.build.js))
-        .pipe(reload({stream:true, once:true}));
+    .pipe(plugins.plumber({errorHandler: onError}))
+    .pipe(plugins.jshint('.jshintrc'))
+    .pipe(plugins.jshint.reporter('jshint-stylish'))
+    .pipe(plugins.jshint.reporter('fail'))
+    .pipe(plugins.concat(config.files.jsFinal + '.js'))
+    .pipe(gulp.dest(config.paths.build.js))
+    .pipe(plugins.rename({
+        suffix: '.min'
+    }))
+    .pipe(plugins.uglify())
+    .pipe(gulp.dest(config.paths.build.js))
+    .pipe(reload({stream:true, once:true}))
+    .pipe(plugins.notify({ message: config.notifications.scripts }));
 });
 
 /**
@@ -77,7 +96,8 @@ gulp.task('images', function () {
     return gulp.src(config.paths.src.img + '**/*')
     .pipe(plugins.imagemin(config.imagemin))
     .pipe(gulp.dest(config.paths.build.img))
-    .pipe(reload({stream:true, once:true}));
+    .pipe(reload({stream:true, once:true}))
+    .pipe(plugins.notify({ message: config.notifications.images }));
 });
 
 /**
@@ -147,7 +167,8 @@ gulp.task('html', function() {
         basepath: '@file'
     }))
     .pipe(gulp.dest(config.paths.build.base))
-    .pipe(reload({stream:true}));
+    .pipe(reload({stream:true}))
+    .pipe(plugins.notify({ message: config.notifications.markup }));
 });
 
 /**
@@ -158,7 +179,8 @@ gulp.task('html', function() {
 
 gulp.task('deploy', function() {
     gulp.src(config.paths.build.base + '**/*')
-    .pipe(plugins.ghPages());
+    .pipe(plugins.ghPages())
+    .pipe(plugins.notify({ message: config.notifications.deployed }));
 });
 
 /**
