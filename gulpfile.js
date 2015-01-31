@@ -217,4 +217,4 @@ gulp.task('default', ['html', 'styles', 'scripts', 'images', 'watch']);
  * Used for testing builds without watch.
  */
 
-gulp.task('default', ['html', 'styles', 'scripts', 'images']);
+gulp.task('test', ['html', 'styles', 'scripts', 'images']);
