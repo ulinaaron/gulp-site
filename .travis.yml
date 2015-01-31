@@ -5,3 +5,5 @@ node_js:
 before_script:
   - npm install -g gulp
 script: gulp
+notifications:
+  slack: aaronmazadeweb:Sr1PBXl8khsUSzxC0YCJF71g
