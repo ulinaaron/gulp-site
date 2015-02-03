@@ -50,6 +50,6 @@
         "scripts": "Scripts successfully processed.",
         "images": "Images successfully minified.",
         "markup": "Markup successfully processed.",
-        "deployed": "Successfully been deploy to GitHub Pages!"
+        "deployed": "Successfully deployed to GitHub Pages!"
     }
 }
